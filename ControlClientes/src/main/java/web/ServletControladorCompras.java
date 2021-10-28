@@ -103,7 +103,18 @@ public class ServletControladorCompras extends HttpServlet{
             throws ServletException, IOException {
         //recuperamos el idCompra
         int idCompra = Integer.parseInt(request.getParameter("idCompra"));
-        Compra compra = new CompraDaoJDBC().encontrar(new Compra(idCompra));
+        List<Compra> compras = new CompraDaoJDBC().listar();
+        
+        Compra compra = new Compra();
+        
+        for (Compra com : compras) {
+            if(com.getIdCompra()== idCompra)
+            {
+                compra.setIdCompra(com.getIdCompra());
+                compra.setIdCliente(com.getIdCliente());
+                compra.setMonto(com.getMonto());
+            }
+        }
         
         request.setAttribute("compra", compra);
         String jspEditarCompra = "/WEB-INF/paginas/compra/editarCompra.jsp";

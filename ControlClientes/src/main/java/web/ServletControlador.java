@@ -75,7 +75,23 @@ public class ServletControlador extends HttpServlet {
             throws ServletException, IOException {
         //recuperamos el idCliente
         int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-        Cliente cliente = new ClienteDaoJDBC().encontrar(new Cliente(idCliente));
+        Cliente cliente = new Cliente();
+        List<Cliente> clientes = new ClienteDaoJDBC().listar();
+        
+        for (Cliente cl : clientes) {
+            if(cl.getIdCliente()== idCliente)
+            {
+                cliente.setIdCliente(cl.getIdCliente());
+                cliente.setNombre(cl.getNombre());
+                cliente.setApellido(cl.getApellido());
+                cliente.setEmail(cl.getEmail());
+                cliente.setSaldo(cl.getSaldo());
+                cliente.setTelefono(cl.getTelefono());
+            }
+        }
+        
+        
+        
         request.setAttribute("cliente", cliente);
         String jspEditar = "/WEB-INF/paginas/cliente/editarCliente.jsp";
         // se crea ruta para navegar y que despecha el servlet
