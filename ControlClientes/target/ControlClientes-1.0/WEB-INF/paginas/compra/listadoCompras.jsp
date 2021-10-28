@@ -4,7 +4,7 @@
 <section id="compras">
     <div class="container">
         <div class="row">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Listado de Compras</h4>
@@ -22,9 +22,8 @@
                             <!-- Iteramos cada elemento de la lista de clientes -->
                             <c:forEach var="compra" items="${compras}" varStatus="status" >
                                 <tr>
-                                    <td>${status.count}</td>
+                                    <td>${compra.idCompra}</td>
                                     <td>${compra.idCliente}</td>
-                                    
                                     <%--Agregamos conversión de numero a moneda--%>
                                     <td> <fmt:formatNumber value="${compra.monto}" type="currency"/> </td>
                                     <td>
@@ -39,28 +38,64 @@
                     </table>
                 </div>
             </div>
-
+        </div>
+        <br><br>
+        <div class="row">
             <!--Inicio Tarjetas para los totales-->
-            <div class="col-md-3">
-                <div class="card text-center bg-danger text-white mb-3">
+            <div class="col-md-6">
+                <div class="card text-center bg-warning text-white mb-3">
                     <div class="card-body">
                         <h3>Monto Total</h3>
                         <h4 class="display-4">
                             <fmt:formatNumber value="${montoTotal}" type="currency" />
                         </h4>
                     </div>
-                </div>
-
-                <div class="card text-center bg-success text-white mb-3">
+                </div>    
+            </div>
+            <div class="col-md-6">
+                <div class="card text-center bg-light text-dark mb-3">
                     <div class="card-body">
                         <h3>Total Compras</h3>
                         <h4 class="display-4">
                             <i class="fas fa-users"></i> ${totalCompras}
                         </h4>
                     </div>
-                </div>        
-            </div>
+                </div> 
+            </div>       
             <!--Fin Tarjetas para los totales-->
+        </div>
+        <br><br>
+         <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Listado de Compras/CLIENTES</h4>
+                    </div>
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Saldo</th>
+                                <th>Monto</th>
+                            </tr>
+                        </thead>
+                        <tbody>                            
+                            <!-- Iteramos cada elemento de la lista de clientes -->
+                            
+                                <c:forEach var="compras2" items="${compras2}" >
+                                <tr>
+                                    <td>${compras2.idCompra}</td>
+                                    <td>${compras2.nombre}</td>
+                                    <td> <fmt:formatNumber value="${compras2.saldo}" type="currency"/> </td>
+                                    <td><fmt:formatNumber value="${compras2.monto}" type="currency"/></td>
+                                    
+                                </tr>
+                                </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </section>

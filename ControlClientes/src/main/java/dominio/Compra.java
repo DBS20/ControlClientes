@@ -2,7 +2,7 @@
 package dominio;
 
 
-public class Compra {
+public class Compra extends Cliente{
     private int idCompra;
     private int idCliente;
     private double monto;
@@ -10,6 +10,22 @@ public class Compra {
     public Compra() {
     }
 
+    //inner join
+    public Compra(int idCompra, int idCliente, String nombre, double saldo,double monto) {
+        super(idCliente, nombre, saldo);
+        this.idCompra = idCompra;
+        this.monto = monto;
+    }
+
+    //inner join
+    public Compra(int idCompra, String nombre, double saldo, double monto) {
+        super(nombre, saldo);
+        this.idCompra = idCompra;
+        this.monto = monto;
+    }
+
+    
+    
     public Compra(int idCompra) {
         this.idCompra = idCompra;
     }

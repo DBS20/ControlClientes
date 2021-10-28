@@ -21,6 +21,11 @@ public class CompraDaoJDBC {
 
     private static final String SQL_DELETE = "DELETE FROM compra WHERE idcompra = ?";
     
+    private static final String strSQL = "SELECT cs.idcompra, c.nombre, c.saldo, cs.monto "
+            + " FROM cliente c "
+            + " inner join compra cs "
+            + " on cs.idcliente = c.id_cliente";
+    
     
     //TODO: trae todas las compras realizadas
     public List<Compra> listar() {
@@ -59,15 +64,13 @@ public class CompraDaoJDBC {
         try {
             conn = Conexion.getConnection();
             stmt = conn.prepareStatement(SQL_SELECT_BY_ID);
-            stmt.setInt(1, compra.getIdCliente());
+            stmt.setInt(1, compra.getIdCompra());
             rs = stmt.executeQuery();
             rs.absolute(1);//nos posicionamos en el primer registro devuelto
 
-            int idCompra = rs.getInt("idcompra");
             int idCliente = rs.getInt("idcliente");
             double monto = rs.getDouble("monto");
             
-            compra.setIdCompra(idCompra);
             compra.setIdCliente(idCliente);
             compra.setMonto(monto);
 
@@ -144,4 +147,37 @@ public class CompraDaoJDBC {
         }
         return rows;
     }
+     
+     
+     //TODO: obtener Compra por id 
+   //TODO: trae todas las compras realizadas
+    public List<Compra> innerJoin() {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Compra compra = null;
+        List<Compra> compras = new ArrayList<>();
+        try {
+            conn = Conexion.getConnection();
+            stmt = conn.prepareStatement(strSQL);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                int idCompra = rs.getInt("idcompra");
+                String nombre = rs.getString("nombre");
+                double saldo = rs.getDouble("saldo");
+                double monto = rs.getDouble("monto");
+
+                compra = new Compra(idCompra, nombre, saldo, monto);
+                compras.add(compra);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        } finally {
+            Conexion.close(rs);
+            Conexion.close(stmt);
+            Conexion.close(conn);
+        }
+        return compras;
+    }
+    
 }

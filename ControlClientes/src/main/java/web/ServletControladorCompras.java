@@ -45,11 +45,17 @@ public class ServletControladorCompras extends HttpServlet{
             throws ServletException, IOException {
         
         List<Compra> compras = new CompraDaoJDBC().listar();
+        List<Cliente> clientes = new ClienteDaoJDBC().listar();
+        List<Compra> compras2 = new CompraDaoJDBC().innerJoin();
         System.out.println("compras = " + compras);
         HttpSession sesion = request.getSession();
         sesion.setAttribute("compras", compras);
+        sesion.setAttribute("clientes", clientes);
+        sesion.setAttribute("compras2", compras2);
         sesion.setAttribute("totalCompras", compras.size());
         sesion.setAttribute("montoTotal", this.calcularMontoTotal(compras));
+        sesion.setAttribute("montoMax", this.calcularMontoMax(compras));
+        sesion.setAttribute("montoMin", this.calcularMontoMin(compras));
         request.getRequestDispatcher("compras.jsp").forward(request, response);
         response.sendRedirect("compras.jsp");
     }
@@ -62,6 +68,33 @@ public class ServletControladorCompras extends HttpServlet{
             montoTotal += compra.getMonto();
         }
         return montoTotal;
+    }
+    
+    //TODO: calcular monto máximo de todos los clientes
+    private double calcularMontoMax(List<Compra> compras) {
+        double montoMax = 0;
+        for (Compra compra : compras) {
+            if(compra.getMonto() > montoMax)
+            {
+                montoMax = compra.getMonto();
+            }
+        }
+        return montoMax;
+    }
+    
+    //TODO: calcular monto máximo de todos los clientes
+    private double calcularMontoMin(List<Compra> compras) {
+        
+        double montoMin = 0;
+        for (Compra compra : compras) {
+           
+            if(montoMin == 0 || montoMin>compra.getMonto())
+            {
+                montoMin=compra.getMonto();
+            }
+            
+        }
+        return montoMin;
     }
     
   

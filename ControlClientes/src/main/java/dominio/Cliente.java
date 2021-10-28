@@ -33,6 +33,23 @@ public class Cliente {
         this.saldo = saldo;
     }
 
+    //inner join
+    public Cliente(int idCliente, String nombre, double saldo) {
+        this.idCliente = idCliente;
+        this.nombre = nombre;
+        this.saldo = saldo;
+    }
+
+    //inner join
+    public Cliente(String nombre, double saldo) {
+        this.nombre = nombre;
+        this.saldo = saldo;
+    }
+
+    
+    
+    
+    
     public int getIdCliente() {
         return idCliente;
     }

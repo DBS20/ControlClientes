@@ -19,6 +19,9 @@
         <!--Boton Agregar Compra-->
         <jsp:include page="/WEB-INF/paginas/comunes/botonAgregarCompra.jsp"/>
         
+        <!--Montos Max y min-->
+        <jsp:include page="/WEB-INF/paginas/compra/montosCompra.jsp"/>
+        
         <!--Listado Compras -->
         <jsp:include page="/WEB-INF/paginas/compra/listadoCompras.jsp"/>
         

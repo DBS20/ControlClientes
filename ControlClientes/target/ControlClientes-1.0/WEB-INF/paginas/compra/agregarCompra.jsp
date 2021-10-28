@@ -1,3 +1,6 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="es_MX"/>
 <div class="modal fade" id="agregarCompraModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -14,7 +17,12 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="idCliente">ID Cliente</label>
-                        <input type="text" class="form-control" name="idCliente" required>
+                        
+                            <select class="form-control" name="idCliente" class="default" required>
+                                <c:forEach var="cliente" items="${clientes}">
+                                <option value="${cliente.idCliente}">${cliente.idCliente}</option>
+                                </c:forEach>
+                            </select>
                     </div>
                     
                     <div class="form-group">

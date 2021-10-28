@@ -1,5 +1,5 @@
 <section id="actions" class="py-4 mb-4 bg-light">
-    <div class="container">
+    <div class="container text-center">
         <div class="row">
             <div class="col-md-6">  
                 <a class="btn btn-primary" href="/ControlClientes/ServletControlador" role="button">Control Clientes</a>
